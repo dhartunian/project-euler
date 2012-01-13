@@ -1,4 +1,5 @@
 import math
+import numpy as np
 
 def sum_squares(n):
     sum = 0
@@ -23,6 +24,15 @@ def prime_helper(x,divisor):
         return False
     else:
         return prime_helper(x, divisor-1)
+
+def prime_helper2(x, divisor):
+    for divisor in range(divisor,int(math.sqrt(x))):
+        if (x % divisor) == 0:
+            return False
+    return True
+
+def is_prime2(x):
+    return prime_helper2(x,2)
 
 def nth_prime(n):
     i = 0
@@ -55,5 +65,30 @@ def find_pythagorean_triplet(n):
             c = n-a-b
             if math.sqrt(a*a + b*b) == c:
                 return a,b,c
-            
-def nth_prime
+
+def test_prime_list(prime_list, number):
+    #division = number % prime_list
+    division = np.remainder(number, prime_list)
+    return np.any(division == 0)
+
+def find_sum_of_primes_helper(prime_list,sum_so_far,m,n):
+    if m >= n:
+        return sum_so_far
+    elif test_prime_list(m, prime_list):
+        return find_sum_of_primes_helper(prime_list, sum_so_far,m+1,n)
+    else:
+        return find_sum_of_primes_helper(np.append(prime_list, m),
+                                  sum_so_far + m,
+                                  m+1,
+                                  n)
+
+def find_sum_of_primes_below(n):
+    prime_list = np.array([])
+    sum_so_far = 0
+#    for m in range(2,n+1):
+    for m in np.arange(1,n,2):
+        if is_prime2(m):
+#        if not test_prime_list(prime_list, m):
+            sum_so_far = sum_so_far + m
+#            prime_list = np.append(prime_list, m)
+    return sum_so_far
