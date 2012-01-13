@@ -1,1 +1,5 @@
 These are scripts that include Euler problem solutions
+
+* 10
+
+Learned about the prime sieve method which is documented in the alternate solution. Mine uses Fermat's Little Theorem but is way way slower.
